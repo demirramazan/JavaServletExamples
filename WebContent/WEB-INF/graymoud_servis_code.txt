@@ -1,0 +1,89 @@
+HashMap<String, String> fisRightClick = new HashMap<String, String>();
+		hizmetRightClick.put(JmedResources.getResource("Fis Aciklama"), "RIGHT_CLICK_FIS_ACIKLAMA");
+
+
+iMap.put(FIS_OID, fis.getOid());
+
+@GraymoundService("HBYS_HASTA_TAKIP_HIZMET_PAKET_ASIMI_ACIKLAMA_EXECUTE")
+	public static GMMap zorunluHizmetAciklamaInit(GMMap iMap) throws Exception {
+		String fisOid = iMap.getString(FIS_OID);
+		HastaIslemDetayFis fis = (HastaIslemDetayFis) JmedPojoProcessor.load(HastaIslemDetayFis.class, fisOid);
+		validatePaketAciklama(iMap);
+		if (JmedCompare.isNotNull(fis)) {
+			if (iMap.getBoolean("PAKET_ASIMI_VAR_MI")) {
+				fis.setFisAciklama(iMap.getString(ACIKLAMA));
+			} else {
+				fis.setFisAciklamaIki(iMap.getString(ACIKLAMA));
+			}
+			JmedPojoProcessor.save(fis);
+		}
+		return iMap;
+	}
+
+	private static void validatePaketAciklama(GMMap iMap) throws Exception {
+		JmedAssertion.assertNotNullQ(iMap.getString(ACIKLAMA), "Paket Fis Aciklamasi");
+		if (JmedCompare.isNotNull(iMap.getString(ACIKLAMA)) && iMap.getString(ACIKLAMA).length() < 16) {
+			JmedUtil.throwExceptions("En az 16 karakterlik acıklama girmeniz gerekmektedir..!");
+		}
+	}
+
+	
+	---------------radsonuc
+	
+	if (JmedCompare.isNotNull(personel)) {
+			if (JmedCompare.isNotNull(user)) {
+				if (JmedUtil.bigDecimalToBoolean(salon.getPsikologMu()) && JmedCompare.equals("PSIKOLOG", personel.getFkRefPers2GorevKod())) {
+					sonuc.setFkKullaniciDiyPisOid(user.getOid());
+				} else if (JmedUtil.bigDecimalToBoolean(salon.getDiyetisyenMi()) && JmedCompare.equals("DIYETISYEN", personel.getFkRefPers2GorevKod())) {
+					sonuc.setFkKullaniciDiyPisOid(user.getOid());
+				}
+			}
+		}
+		
+		-----girissevksevk
+		
+		HastaHastane hastane = (HastaHastane) JmedPojoProcessor.load(HastaHastane.class, iMap.getString("FK_HASTA_HASTANE_OID"));
+			HastaHasta hasta = (HastaHasta) JmedPojoProcessor.load(HastaHasta.class, islem.getFkHastaHastaOid());
+
+			Map<Object, Object> otherHospitalMap = new HashMap<Object, Object>();
+
+			otherHospitalMap.put("TC_KIMLIK_NO", hasta.getHastaKimlikNo());
+			otherHospitalMap.put("HASTANE_KODU", hastane.getMerkezKodu());
+			otherHospitalMap.put("HASTANE_IP", hastane.getDisHastaneIp());
+			otherHospitalMap.put("HASTANE_PORT", hastane.getDisHastanePort());
+			otherHospitalMap.putAll(DAOUtil.pojoToMap(hasta));
+
+			GMServiceExecuter.execute("JMED_HBYS_TETKIK_SEVK_OTHER_HOSPITAL_HASTA_KABUL", otherHospitalMap);
+			
+			
+			GMServiceExecuter.execute("JMED_HBYS_TETKIK_SEVK_OTHER_HOSPITAL_TETKIK_ISTEM", otherHospitalMap);
+
+			
+			
+				@GraymoundService(value = "JMED_HBYS_TETKIK_SEVK_OTHER_HOSPITAL_HASTA_KABUL")
+	public static GMMap getOtherHospitalHastaAndIslemSave(GMMap iMap) throws Exception {
+		GMMap oMap = new GMMap();
+		String hastaOid = getHastaHastaOid(iMap.getString(TC_KIMLIK_NO));
+		HastaHasta hasta = null;
+		if (JmedCompare.isNull(hastaOid)) {
+			iMap.put(PAGE_MODE, NEW);
+			hasta = HastaKabul.savePatient(iMap, oMap);
+		} else {
+			hasta = (HastaHasta) JmedPojoProcessor.load(HastaHasta.class, hastaOid);
+		}
+		HastaKabul.saveDetay(hasta, iMap, oMap);
+
+		return oMap;
+	}
+
+	private static String getHastaHastaOid(String hastaKimlikNo) throws Exception {
+		HastaHasta hasta = (HastaHasta) JmedPojoProcessor.getUnique(HastaHasta.class, "hastaKimlikNo", new BigDecimal(hastaKimlikNo));
+		return JmedCompare.isNotNull(hasta) ? hasta.getOid() : null;
+	}
+
+	@GraymoundService(value = "JMED_HBYS_TETKIK_SEVK_OTHER_HOSPITAL_TETKIK_ISTEM")
+	public static GMMap getOtherHospitalHizmetOrnekNo(GMMap iMap) throws Exception {
+		GMMap oMap = new GMMap();
+		TetkikIstem.execute(iMap);
+		return oMap;
+	}
