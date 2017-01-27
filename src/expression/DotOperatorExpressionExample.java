@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/DotOperatorExpressionExample" })
+@WebServlet(name = "DotOperatorExpressionExample",urlPatterns = { "/DotOperatorExpressionExample" })
 public class DotOperatorExpressionExample extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

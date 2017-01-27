@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/servletSendRedirect" })
+@WebServlet(name = "ServletSendRedirect",urlPatterns = { "/servletSendRedirect" })
 public class ServletSendRedirect extends HttpServlet {
 
 	public void doGet(HttpServletRequest request,HttpServletResponse response)throws IOException,ServletException {

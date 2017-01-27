@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/contextScopeExample" })
+@WebServlet(name = "ContextScopeExample",urlPatterns = { "/contextScopeExample" })
 public class ContextScopeExample extends HttpServlet {
 
 	@Override

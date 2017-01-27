@@ -27,15 +27,7 @@
 		<servlet-name>ServletContextExample</servlet-name>
 		<url-pattern>/ServletContextClass</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>DownloadingWithServlet</servlet-name>
-		<servlet-class>downloading.DownloadingWithServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DownloadingWithServlet</servlet-name>
-		<url-pattern>/DownloadingWithServlet</url-pattern>
-	</servlet-mapping>
-	<servlet>
+		<servlet>
 		<servlet-name>ServletLifecycle</servlet-name>
 		<servlet-class>ServletLifecycle</servlet-class>
 	</servlet>

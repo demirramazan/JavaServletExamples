@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Created by ramazan.demir on 5.1.2017.
  */
-@WebServlet("/servletlifecycle")
+@WebServlet(name = "ServletLifecycle",urlPatterns = "/servletlifecycle")
 public class ServletLifecycle  extends HttpServlet{
     public static ServletConfig config;
     @Override

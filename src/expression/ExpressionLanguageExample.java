@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import pojo.Department;
 import pojo.Employee;
 
-@WebServlet(urlPatterns = { "/WithoutExpressionLanguage" ,"WithExpressionLanguage"})
+@WebServlet(urlPatterns = { "/withoutExpressionLanguage" })
 public class ExpressionLanguageExample extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
