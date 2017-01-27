@@ -22,7 +22,6 @@ public class DownloadingWithServlet extends HttpServlet {
 	 */
 	public DownloadingWithServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
