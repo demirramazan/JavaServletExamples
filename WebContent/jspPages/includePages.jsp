@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-    <%@include file="forwardIt.jsp"%>
+<%@include file="forwardIt.jsp"%>
 <p> this is includeDirective.jsp </p>
 <jsp:include page="forwardIt.jsp"/>
 <p> this is includePage.jsp </p>
